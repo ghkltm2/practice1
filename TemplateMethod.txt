@@ -1,0 +1,64 @@
+//	Template Method
+#include <iostream>
+using namespace std;
+
+class AbsDrinks {
+private:
+	void Waterdrag()
+	{
+		cout << "water drag" << endl;
+	}
+	void Addtocup()
+	{
+		cout << "Add to cup" << endl;
+	}
+protected:
+	virtual void make() = 0;
+	virtual void Addsomething() = 0;
+public:
+	void process()
+	{
+		Waterdrag();
+		Addsomething();
+		make();
+		Addtocup();
+	}
+
+};
+
+class Coffee :public AbsDrinks{
+protected:
+	virtual void make()
+	{
+		cout << "make coffee" << endl;
+	}
+	virtual void Addsomething()
+	{
+		cout << "add coffee material" << endl;
+	}
+};
+
+class Tea :public AbsDrinks {
+protected:
+	virtual void make()
+	{
+		cout << "make tea" << endl;
+	}
+	virtual void Addsomething()
+	{
+		cout << "add tea material" << endl;
+	}
+};
+
+int main()
+{
+	AbsDrinks* mcoffee = new Coffee;
+	AbsDrinks* mtea = new Tea;
+
+	mcoffee->process();
+	mtea->process();
+
+	delete mcoffee;
+	delete mtea;
+}
+// 장점은 공통된 process를 묶을 수 있고 변화가 가능한 것만 수정하면 main등 수정 안해도 된다.
